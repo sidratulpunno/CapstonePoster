@@ -15,10 +15,34 @@
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.3s ease;
+        }
+        .zoomed {
+            transform: scale(2);
         }
     </style>
 </head>
 <body>
-    <img src="Slide2.jpg" alt="Blind Assistance Poster">
+    <img id="poster" src="Slide2.jpg" alt="Blind Assistance Poster">
+
+    <script>
+        const img = document.getElementById('poster');
+        let lastTap = 0;
+
+        img.addEventListener('touchend', (e) => {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            
+            if (tapLength < 300 && tapLength > 0) {
+                // Double tap detected
+                if (img.classList.contains('zoomed')) {
+                    img.classList.remove('zoomed');
+                } else {
+                    img.classList.add('zoomed');
+                }
+            }
+            lastTap = currentTime;
+        });
+    </script>
 </body>
 </html>
